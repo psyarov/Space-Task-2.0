@@ -64,6 +64,6 @@ for main.thisPrac_main_task in main.prac_main_task: # loops first the practice a
         main.block_reward()                         # crystals are either found or not found
         main.block_completed()                      # how many blocks has the participant completed
     main.task_score()                               # how many points did the participant win in the whole task
-
-# END EXPERIMENT
-main.end_experiment()                               # ends experiment and escapes
+    main.end_experiment()                           # if we've done 16 blocks, the script saves and quits
+    
+    

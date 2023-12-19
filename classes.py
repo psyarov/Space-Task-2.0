@@ -9,7 +9,6 @@ import os
 import sys
 import psychopy.iohub as io
 from psychopy.hardware import keyboard
-# 26
 import random
 from random import shuffle
 
@@ -25,15 +24,16 @@ class Trial:
     number_list = [1,2,3,4]
     random.shuffle(number_list)
     task_str = "hello"
-    lists = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+    lists = [0, 1, 2, 3] #, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]   # manipulate blocks
     block_lists = lists
+    number_of_blocks = len(block_lists)
     random.shuffle(block_lists);
     print(block_lists);
-    x = [0]#,1,2]#,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]                      # manipulate trials
+    x = [0] #,1,2]#,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]                      # manipulate trials
     random.shuffle(x);
     trial_lists = x;
     ques_word = 'hello'
-    total_blocks = 16;
+    total_blocks = number_of_blocks
     block_num = 0;
     cond1_rew = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0];
     cond2_rew = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0];
@@ -51,7 +51,6 @@ class Trial:
     
     # participant window
     dlg = None
-    #data = None #get rid of this?
     filename = None
     
     # experiment handler
@@ -68,7 +67,7 @@ class Trial:
     ioSession = None
     ioServer = None
     io = None
-    eyetracker = None
+    eyetracker = False
     defaultKeyboard = None
     
     # initialize routines
@@ -102,6 +101,8 @@ class Trial:
     mu_5 = None
     text_21 = None
     key_resp_3 = None
+    left_planet = None
+    right_planet = None
     # signal
     space_image_8 = None
     radar_3 = None
@@ -141,7 +142,6 @@ class Trial:
     question = None
     mouse_resp = None
     x, y = [None, None]
-    #mouse_resp.mouseClock = core.Clock() # !!! IMPLEMENT THIS LATER IN THE ROUTINE INITIALIZATION
     # block_rew
     space_bg_17 = None
     proceed_18 = None
@@ -165,7 +165,7 @@ class Trial:
     # prac_main handler
     prac_main_task = None
     thisPrac_main_task = None
-    currentLoop = None # for prac_block loop
+    currentLoop = None
     
     #block_handler
     block = None
@@ -290,7 +290,31 @@ class Trial:
         self.text_24 = visual.TextStim(win=self.win, name='text_24', text='', font='Times New Roman', pos=(0, -0.3), height=0.03, wrapWidth=1.0, ori=0.0, color='white', colorSpace='rgb', opacity=None, languageStyle='LTR', depth=-7.0);
         self.key_resp_5 = keyboard.Keyboard()
         self.text_31 = visual.TextStim(win=self.win, name='text_31', text='Press SPACEBAR to proceed.', font='Times New Roman', pos=(0, -0.45), height=0.02, wrapWidth=None, ori=0.0, color='white', colorSpace='rgb', opacity=None, languageStyle='LTR', depth=-9.0);
-
+        # block_choice
+        self.space_bg_16 = visual.ImageStim(win=self.win, name='space_bg_16', image='resources/space3.png', mask=None, anchor='center', ori=0.0, pos=(0, 0), size=(2, 1), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=0.0)
+        self.shuttle_7 = visual.ImageStim(win=self.win, name='shuttle_7', image='resources/space-shuttle.png', mask=None, anchor='center', ori=0.0, pos=(0, -0.135), size=(0.2, 0.2), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=-1.0)
+        self.planet_right_9 = visual.ImageStim(win=self.win, name='planet_right_9', image='sin', mask=None, anchor='center', ori=0.0, pos=[0,0], size=(0.15, 0.15), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=-2.0)
+        self.planet_left_9 = visual.ImageStim(win=self.win, name='planet_left_9', image='sin', mask=None, anchor='center', ori=0.0, pos=(-0.4, 0.4), size=(0.15, 0.15), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=-3.0)
+        self.text_25 = visual.TextStim(win=self.win, name='text_25', text='', font='Times New Roman', pos=(0, -0.35), height=0.03, wrapWidth=None, ori=0.0, color='white', colorSpace='rgb', opacity=None, languageStyle='LTR', depth=-4.0);
+        self.question = visual.ImageStim(win=self.win, name='question', image='resources/question-mark.png', mask=None, anchor='center', ori=0.0, pos=(0, 0.05), size=(0.1, 0.1), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=-6.0)
+        self.mouse_resp = event.Mouse(win=self.win)
+        self.x, self.y = [None, None]
+        self.mouse_resp.mouseClock = core.Clock()
+        # block_rew
+        self.space_bg_17 = visual.ImageStim(win=self.win, name='space_bg_17', image='resources/space3.png', mask=None, anchor='center', ori=0.0, pos=(0, 0), size=(2, 1), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=0.0)
+        self.proceed_18 = keyboard.Keyboard()
+        self.text_26 = visual.TextStim(win=self.win, name='text_26',text='', font='Open Sans', pos=[0,0], height=0.05, wrapWidth=None, ori=0.0, color='white', colorSpace='rgb', opacity=None, languageStyle='LTR', depth=-2.0);
+        self.planet = visual.ImageStim(win=self.win, name='planet', image='sin', mask=None, anchor='center', ori=0.0, pos=[0,0], size=(0.5, 0.5), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=-3.0)
+        self.shuttle_8 = visual.ImageStim(win=self.win, name='shuttle_8', image='resources/shuttle_fire.png', mask=None, anchor='center', ori=1.0, pos=[0,0], size=(0.2, 0.3), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=-4.0)
+        self.crystal = visual.ImageStim(win=self.win, name='crystal', image='resources/crystal.png', mask=None, anchor='center', ori=0.0, pos=[0,0], size=(0.1, 0.1), color=[1,1,1], colorSpace='rgb', opacity=1.0, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=-6.0)
+        # block_completed
+        self.space_bg_18 = visual.ImageStim(win=self.win, name='space_bg_18', image='resources/space3.png', mask=None, anchor='center', ori=0.0, pos=(0, 0), size=(2, 1), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=0.0)
+        self.proceed_19 = keyboard.Keyboard()
+        self.text_27 = visual.TextStim(win=self.win, name='text_27', text='', font='Times New Roman', pos=[0,0], height=0.03, wrapWidth=None, ori=0.0, color='white', colorSpace='rgb', opacity=None, languageStyle='LTR', depth=-2.0);
+        # task_score
+        self.space_bg_19 = visual.ImageStim(win=self.win, name='space_bg_19', image='resources/space3.png', mask=None, anchor='center', ori=0.0, pos=(0, 0), size=(2, 1), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=-1.0)
+        self.text_28 = visual.TextStim(win=self.win, name='text_28', text='', font='Times New Roman', pos=(0, 0), height=0.03, wrapWidth=None, ori=0.0, color='white', colorSpace='rgb', opacity=None, languageStyle='LTR', depth=-2.0);
+        self.proceed_20 = keyboard.Keyboard()
 
 
     def create_timers(self):
@@ -342,7 +366,7 @@ class Trial:
     def keys_update_2(self, keys, all_keys, key):
         self.theseKeys = keys.getKeys(keyList=key, waitRelease=False)
         all_keys.extend(self.theseKeys)
-        self.continueRoutine = True # careful with this, it was not initially here
+        self.continueRoutine = True # check
         if len(all_keys):
             keys.keys = all_keys[-1].name
             keys.rt = all_keys[-1].rt
@@ -361,10 +385,6 @@ class Trial:
             if hasattr(thisComponent, "setAutoDraw"):
                 thisComponent.setAutoDraw(False)
         return components
-
-    def check_and_save_responses(self):
-        # implement this
-        a=1
 
     def routine_reset(self):
         self.continueRoutine = True
@@ -398,7 +418,6 @@ class Trial:
         components = self.hide_components(components)
         self.thisExp.addData('text_101.started', self.text_101.tStartRefresh)
         self.thisExp.addData('text_101.stopped', self.text_101.tStopRefresh)
-        # add check_and_save_responses() function
         if self.lang_keys.keys in ['', [], None]:
             self.lang_keys.keys = None
         self.thisExp.addData('lang_keys.keys',self.lang_keys.keys)
@@ -516,17 +535,17 @@ class Trial:
             right_op = 1;
         if self.thisPrimer['planet_pos'] == 0:           # ...
             print("planet_pos0 ?????????\n")
-            left_planet = 'resources/green_blur.png'
-            right_planet = 'resources/blue_blur.png'
+            self.left_planet = 'resources/green_blur.png'
+            self.right_planet = 'resources/blue_blur.png'
         else:
             print("not planet_pos0 ?????????\n")
-            left_planet = 'resources/blue_blur.png'
-            right_planet = 'resources/green_blur.png'
+            self.left_planet = 'resources/blue_blur.png'
+            self.right_planet = 'resources/green_blur.png'
         self.planet_right_6.setOpacity(right_op)
         self.planet_right_6.setPos((0.4, 0.4))
-        self.planet_right_6.setImage(right_planet)
+        self.planet_right_6.setImage(self.right_planet)
         self.planet_left_6.setOpacity(left_op)
-        self.planet_left_6.setImage(left_planet)
+        self.planet_left_6.setImage(self.left_planet)
         self.arrow_left_3.setPos((pos,0.17))
         self.arrow_left_3.setImage(arrow)
         self.mu_5.reset()
@@ -672,16 +691,16 @@ class Trial:
                 ques_word = 'Bitte gib die Wahrscheinlichkeit an, auf dem LINKEN Planeten Weltraumkristalle zu finden.'
             arrow = 'resources/curved_arrow.png'
         if self.thisPrimer['planet_pos'] == 0:
-            left_planet = 'resources/green_blur.png'
-            right_planet = 'resources/blue_blur.png'
+            self.left_planet = 'resources/green_blur.png'
+            self.right_planet = 'resources/blue_blur.png'
         else:
-            left_planet = 'resources/blue_blur.png'
-            right_planet = 'resources/green_blur.png'
+            self.left_planet = 'resources/blue_blur.png'
+            self.right_planet = 'resources/green_blur.png'
         self.text_22.setText(ques_word)
         self.reported_mu.reset()
         self.planet_right_7.setPos((0.4, 0.4))
-        self.planet_right_7.setImage(right_planet)
-        self.planet_left_7.setImage(left_planet)
+        self.planet_right_7.setImage(self.right_planet)
+        self.planet_left_7.setImage(self.left_planet)
         self.arrow_left_4.setPos((pos,0.17))
         self.arrow_left_4.setOri(0.0)
         self.arrow_left_4.setImage(arrow)
@@ -716,7 +735,7 @@ class Trial:
             if self.reported_mu.status == NOT_STARTED and self.tThisFlip >= 1.5-self.frameTolerance:
                 self.reported_mu = self.text_or_image_update(self.reported_mu)
                 self.thisExp.timestampOnFlip(self.win, 'reported_mu.started')
-                self.mu_ghost.setAutoDraw(True)                                  # I need to take care of this maybe
+                self.mu_ghost.setAutoDraw(True)                                  # check
             if self.reported_mu.status == STARTED: # ***
                 if self.tThisFlipGlobal > self.reported_mu.tStartRefresh + 6-self.frameTolerance:
                     self.reported_mu.tStop = self.t
@@ -772,7 +791,7 @@ class Trial:
         if self.reported_mu.getRating() is not None: mu = self.reported_mu.getRating();
         self.trials.addData('reported_mu.response', self.reported_mu.getRating())
         self.trials.addData('reported_mu.rt', self.reported_mu.getRT())
-        if self.reported_mu.getRating() is not None: self.mu_ghost.markerPos = mu # WATCH OUT
+        if self.reported_mu.getRating() is not None: self.mu_ghost.markerPos = mu # check
         self.mu = mu
         if self.routineForceEnded:
             self.routineTimer.reset()
@@ -834,7 +853,7 @@ class Trial:
     def last_mu(self): # SPECIFICS!
         #self.prepare_routine(last_mu_components)
         self.routine_reset()
-        self.mu_7.markerPos = self.mu; # WATCH OUT
+        self.mu_7.markerPos = self.mu; # check
         if self.thisPrimer['left'] == 0:
             pos = 0.07
             if self.lang_keys.keys == 'e':
@@ -856,16 +875,16 @@ class Trial:
             left_op = 1;
             right_op = 1;
         if self.thisPrimer['planet_pos'] == 0:
-            left_planet = 'resources/green_blur.png'
-            right_planet = 'resources/blue_blur.png'
+            self.left_planet = 'resources/green_blur.png'
+            self.right_planet = 'resources/blue_blur.png'
         else:
-            left_planet = 'resources/blue_blur.png'
-            right_planet = 'resources/green_blur.png'
+            self.left_planet = 'resources/blue_blur.png'
+            self.right_planet = 'resources/green_blur.png'
         self.planet_right_8.setOpacity(right_op)
         self.planet_right_8.setPos((0.4, 0.4))
-        self.planet_right_8.setImage(right_planet)
+        self.planet_right_8.setImage(self.right_planet)
         self.planet_left_8.setOpacity(left_op)
-        self.planet_left_8.setImage(left_planet)
+        self.planet_left_8.setImage(self.left_planet)
         self.arrow_left_5.setPos((pos, 0.17))
         self.arrow_left_5.setOri(0.0)
         self.arrow_left_5.setImage(arrow)
@@ -929,29 +948,350 @@ class Trial:
         self.routineTimer.reset()
 
     def block_choice(self): # SPECIFICS
-        block_choice_components = []
-        self.prepare_routine(block_choice_components)
-        self.run_routine(block_choice_components)
-        self.end_routine(block_choice_components)
+        #self.prepare_routine(block_choice_components)
+        self.routine_reset()
+        if self.lang_keys.keys == 'e':
+            self.text_25.setText('Please make a choice about which planet you want the spaceship to go to.\n\nTo make a choice, you need to click on the planet which you want to send the spaceship to. ')
+        else:
+            self.text_25.setText('Bitte entscheide dich für einen Planeten, zu dem das Raumschiff fliegen soll.\n\nUm eine Wahl zu treffen, musst du auf den Planeten klicken, zu dem du das Raumschiff schicken willst.')
+        self.planet_right_9.setPos((0.4, 0.4))
+        self.planet_right_9.setImage(self.right_planet)
+        self.planet_left_9.setImage(self.left_planet)
+        if self.thisPrimer['planet_pos'] == 0: # ???? watch out -> is it always from the Primer or maybe also depending on the block (is there even a difference)
+            self.left_planet = 'resources/green_blur.png'
+            self.right_planet = 'resources/blue_blur.png'
+        else:
+            self.left_planet = 'resources/blue_blur.png'
+            self.right_planet = 'resources/green_blur.png'
+        self.mouse_resp.x = []
+        self.mouse_resp.y = []
+        self.mouse_resp.leftButton = []
+        self.mouse_resp.midButton = []
+        self.mouse_resp.rightButton = []
+        self.mouse_resp.time = []
+        self.mouse_resp.clicked_name = []
+        self.gotValidClick = False
+        self.block_choice_components = [self.space_bg_16, self.shuttle_7, self.planet_right_9, self.planet_left_9, self.text_25, self.question, self.mouse_resp]
+        self.block_choice_components = self.keep_track(self.block_choice_components)
+        self.reset_timers()
+        
+        #self.run_routine(block_choice_components)
+        while self.continueRoutine:
+            self.get_current_time(self.routineTimer)
+            self.frameN = self.frameN + 1
+            if self.space_bg_16.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.space_bg_16 = self.text_or_image_update(self.space_bg_16)
+                self.thisExp.timestampOnFlip(self.win, 'space_bg_16.started')
+            if self.shuttle_7.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.shuttle_7 = self.text_or_image_update(self.shuttle_7)
+                self.thisExp.timestampOnFlip(self.win, 'shuttle_7.started')
+            if self.planet_right_9.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.planet_right_9 = self.text_or_image_update(self.planet_right_9)
+                self.thisExp.timestampOnFlip(self.win, 'planet_right_9.started')
+            if self.planet_left_9.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.planet_left_9 = self.text_or_image_update(self.planet_left_9)
+                self.thisExp.timestampOnFlip(self.win, 'planet_left_9.started')
+            if self.text_25.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.text_25 = self.text_or_image_update(self.text_25)
+                self.thisExp.timestampOnFlip(self.win, 'text_25.started')
+            if self.question.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.question = self.text_or_image_update(self.question)
+                self.thisExp.timestampOnFlip(self.win, 'question.started')
+            if self.mouse_resp.status == NOT_STARTED and self.t >= 0.0-self.frameTolerance: # I SHOULD ADD A NEW FUNCTION FOR THIS
+                # keep track of start time/frame for later
+                self.mouse_resp.frameNStart = self.frameN  # exact frame index
+                self.mouse_resp.tStart = self.t  # local t and not account for scr refresh
+                self.mouse_resp.tStartRefresh = self.tThisFlipGlobal  # on global time
+                self.win.timeOnFlip(self.mouse_resp, 'tStartRefresh')  # time at next scr refresh
+                # add timestamp to datafile
+                self.thisExp.addData('mouse_resp.started', self.t)
+                self.mouse_resp.status = STARTED
+                self.mouse_resp.mouseClock.reset()
+                self.prevButtonState = self.mouse_resp.getPressed()  # if button is down already this ISN'T a new click
+            if self.mouse_resp.status == STARTED:  # only update if started and not finished!
+                self.buttons = self.mouse_resp.getPressed()
+                if self.buttons != self.prevButtonState:  # button state changed?
+                    self.prevButtonState = self.buttons
+                    if sum(self.buttons) > 0:  # state changed to a new click
+                        # check if the mouse was inside our 'clickable' objects
+                        self.gotValidClick = False
+                        try:
+                            iter([self.planet_right_9,self.planet_left_9])
+                            self.clickableList = [self.planet_right_9,self.planet_left_9]
+                        except:
+                            self.clickableList = [[self.planet_right_9,self.planet_left_9]]
+                        for obj in self.clickableList:
+                            if obj.contains(self.mouse_resp):
+                                self.gotValidClick = True
+                                self.mouse_resp.clicked_name.append(obj.name)
+                        if self.gotValidClick:
+                            self.x, self.y = self.mouse_resp.getPos()
+                            self.mouse_resp.x.append(self.x)
+                            self.mouse_resp.y.append(self.y)
+                            self.buttons = self.mouse_resp.getPressed()
+                            self.mouse_resp.leftButton.append(self.buttons[0])
+                            self.mouse_resp.midButton.append(self.buttons[1])
+                            self.mouse_resp.rightButton.append(self.buttons[2])
+                            self.mouse_resp.time.append(self.mouse_resp.mouseClock.getTime())
+                        if self.gotValidClick:
+                            self.continueRoutine = False  # abort routine on response
+            
+            if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
+            if not self.continueRoutine: self.routineForceEnded = True; break
+            self.continueRoutine = False
+            self.block_choice_components = self.check_if_components_finished(self.block_choice_components)
+            if self.continueRoutine: self.win.flip()
+        
+        #self.end_routine(block_choice_components)
+        self.block_choice_components = self.hide_components(self.block_choice_components)
+        if self.mouse_resp.clicked_name[0] == 'planet_left_9':
+            self.text_pos = 0.2;
+            self.pos_planet = -0.4;
+            self.ship_pos = -0.19;
+            self.ship_ori = 305;
+            self.crystal_pos = 0.5;
+            if self.thisPrimer['planet_pos'] == 0: # check (planet_pos before)
+                self.image = 'resources/green_blur.png'
+            else:
+                self.image = 'resources/blue_blur.png'
+        else:
+            self.text_pos = -0.4;
+            self.pos_planet = 0.4;
+            self.ship_pos = -0.19;
+            self.ship_ori = 45;
+            self.crystal_pos = -0.1;
+            if self.thisPrimer['planet_pos'] == 0: # check
+                self.image = 'resources/blue_blur.png'
+            else:
+                self.image = 'resources/green_blur.png'
+                
+        if self.mouse_resp.clicked_name[0] == self.thisBlock['corr']: # not sure about thisBlock['corr'] (it was only == corr before)
+            if self.thisPrimer['condition'] == 1: # check (maybe thisBlock instead)
+                self.prob = 0.7 
+                self.block_rew = self.cond1_rew[self.block_num]#generate_zero_or_one(prob)
+            else:
+                self.prob = 0.9
+                self.block_rew = self.cond2_rew[self.block_num] #generate_zero_or_one(prob)
+        else:
+            if self.thisPrimer['condition'] == 1: # check (maybe thisBlock instead)
+                self.prob = 0.3
+                self.block_rew = 1-self.cond1_rew[self.block_num] #generate_zero_or_one(prob)
+            else:
+                self.prob = 0.1
+                self.block_rew = 1-self.cond2_rew[self.block_num] #generate_zero_or_one(prob)
+        
+        if self.block_rew == 1:
+            if self.lang_keys.keys == 'e':
+                self.str4 = "Space crystal found!\n"
+            else:
+                self.str4='Weltraumkristall gefunden!\n'
+            self.op = 0.7;
+        else:
+            if self.lang_keys.keys == 'e':
+                self.str4 = "No crystals found!\n"
+            else:
+                self.str4='Keine Weltraumkristalle gefunden.\n'
+            self.op = 0;
+        
+        if self.lang_keys.keys == 'e':
+            self.str1 = "You win"
+            self.str2 = str(self.block_rew)
+            self.str3 = " "+"points!" 
+        else:
+            self.str1 = "Du gewinnst "
+            self.str2 = str(self.block_rew)
+            if self.block_rew == 1:
+                self.str3 = " "+"Punkt!" 
+            else:
+                self.str3 = " "+"Punkte!" 
+        
+        self.block_num = self.block_num + 1;
+        
+        self.rew = self.str4 + " " +self.str1 + " " + self.str2 + " " + self.str3
+        self.task_rew = self.task_rew + self.block_rew;
+        self.thisExp.addData('block_points', self.block_rew)
+        self.block.addData('mouse_resp.x', self.mouse_resp.x)
+        self.block.addData('mouse_resp.y', self.mouse_resp.y)
+        self.block.addData('mouse_resp.leftButton', self.mouse_resp.leftButton)
+        self.block.addData('mouse_resp.midButton', self.mouse_resp.midButton)
+        self.block.addData('mouse_resp.rightButton', self.mouse_resp.rightButton)
+        self.block.addData('mouse_resp.time', self.mouse_resp.time)
+        self.block.addData('mouse_resp.clicked_name', self.mouse_resp.clicked_name)
+        self.routineTimer.reset()
 
     def block_reward(self):
-        block_reward_components = []
-        self.prepare_routine(block_reward_components)
-        self.run_routine(block_reward_components)
-        self.end_routine(block_reward_components)
+        #self.prepare_routine(block_reward_components)
+        self.routine_reset()
+        self.proceed_18.keys = []
+        self.proceed_18.rt = []
+        self._proceed_18_allKeys = []
+        self.text_26.setPos((self.text_pos + 0.2, 0))
+        self.text_26.setText(self.rew)
+        self.planet.setPos((self.pos_planet + 0.05, 0))
+        self.planet.setImage(self.image)
+        self.shuttle_8.setPos((0, self.ship_pos))
+        self.shuttle_8.setOri(self.ship_ori)
+        self.ori = 0;
+        self.crystal.setOpacity(self.op)
+        self.crystal.setPos((self.crystal_pos, 0 + 0.1))
+        self.block_rew_components = [self.space_bg_17, self.proceed_18, self.text_26, self.planet, self.shuttle_8, self.crystal]
+        self.block_rew_components = self.keep_track(self.block_rew_components)
+        self.reset_timers()
+        
+        #self.run_routine(block_reward_components)
+        while self.continueRoutine:
+            self.get_current_time(self.routineTimer)
+            self.frameN = self.frameN + 1
+            if self.space_bg_17.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.space_bg_17 = self.text_or_image_update(self.space_bg_17)
+                self.thisExp.timestampOnFlip(self.win, 'space_bg_17.started')
+            self.waitOnFlip = False
+            if self.proceed_18.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.proceed_18 = self.keys_update_1(self.proceed_18)
+                self.thisExp.timestampOnFlip(self.win, 'proceed_18.started')
+            if self.proceed_18.status == STARTED and not self.waitOnFlip:
+                self._proceed_18_allKeys, self.proceed_18 = self.keys_update_2(self.proceed_18, self._proceed_18_allKeys, ['space'])
+            if self.text_26.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.text_26 = self.text_or_image_update(self.text_26)
+                self.thisExp.timestampOnFlip(self.win, 'text_26.started')
+            if self.planet.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.planet = self.text_or_image_update(self.planet)
+                self.thisExp.timestampOnFlip(self.win, 'planet.started')
+            if self.shuttle_8.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.shuttle_8 = self.text_or_image_update(self.shuttle_8)
+                self.thisExp.timestampOnFlip(self.win, 'shuttle_8.started')
+            if self.crystal.status == STARTED:
+                self.crystal.setOri(1,'+')
+                self.crystal.draw()
+            if self.crystal.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.crystal = self.text_or_image_update(self.crystal)
+                self.thisExp.timestampOnFlip(self.win, 'crystal.started')
+            if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
+            if not self.continueRoutine: self.routineForceEnded = True; break
+            self.continueRoutine = False
+            self.block_rew_components = self.check_if_components_finished(self.block_rew_components)
+            if self.continueRoutine: self.win.flip()
+        
+        
+        #self.end_routine(block_reward_components)
+        self.block_rew_components = self.hide_components(self.block_rew_components)
+        if self.proceed_18.keys in ['', [], None]: self.proceed_18.keys = None
+        self.block.addData('proceed_18.keys',self.proceed_18.keys)
+        if self.proceed_18.keys != None: self.block.addData('proceed_18.rt', self.proceed_18.rt)
+        if self.lang_keys.keys == 'e':
+            self.str1 = "You completed"
+            self.str2 = " " + str(self.block_num)
+            self.str3 = " " + "out of"
+            self.str4 = " " + str(self.total_blocks)
+            self.str5 = " " + "blocks."
+            self.str6 = "\n Press SPACEBAR to proceed."
+        else:
+            self.str1 = "Du hast"
+            self.str2 = " " + str(self.block_num)
+            self.str3 = " " + "von"
+            self.str4 = " " + str(self.total_blocks)
+            self.str5 = " " + "Blöcken abgeschlossen."
+            self.str6 = "\n Drücke die LEERTASTE, um fortzufahren."
+        self.block_str = self.str1 + self.str2 + self.str3 + self.str4 + self.str5 + self.str6
+        self.routineTimer.reset()
 
     def block_completed(self):
-        block_completed_components = []
-        self.prepare_routine(block_completed_components)
-        self.run_routine(block_completed_components)
-        self.end_routine(block_completed_components)
+        #self.prepare_routine(block_completed_components)
+        self.routine_reset()
+        self.proceed_19.keys = []
+        self.proceed_19.rt = []
+        self._proceed_19_allKeys = []
+        self.text_27.setPos((0, 0))
+        self.text_27.setText(self.block_str)
+        self.block_completed_components = [self.space_bg_18, self.proceed_19, self.text_27]
+        self.block_completed_components = self.keep_track(self.block_completed_components)
+        self.reset_timers()
+        
+        #self.run_routine(block_completed_components)
+        while self.continueRoutine:
+            self.t = self.routineTimer.getTime()
+            self.tThisFlip = self.win.getFutureFlipTime(clock=self.routineTimer)
+            self.tThisFlipGlobal = self.win.getFutureFlipTime(clock=None)
+            self.frameN = self.frameN + 1 
+            if self.space_bg_18.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.space_bg_18 = self.text_or_image_update(self.space_bg_18)
+                self.thisExp.timestampOnFlip(self.win, 'space_bg_18.started')
+            self.waitOnFlip = False
+            if self.proceed_19.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.proceed_19 = self.keys_update_1(self.proceed_19)
+                self.thisExp.timestampOnFlip(self.win, 'proceed_19.started')
+            if self.proceed_19.status == STARTED and not self.waitOnFlip:
+                self._proceed_19_allKeys, self.proceed_19 = self.keys_update_2(self.proceed_19, self._proceed_19_allKeys, ['space'])
+            if self.text_27.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.text_27 = self.text_or_image_update(self.text_27)
+                self.thisExp.timestampOnFlip(self.win, 'text_27.started')
+            if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
+            if not self.continueRoutine: self.routineForceEnded = True; break
+            self.continueRoutine = False
+            self.block_completed_components = self.check_if_components_finished(self.block_completed_components)
+            if self.continueRoutine: self.win.flip()
+        
+        #self.end_routine(block_completed_components)
+        self.block_completed_components = self.hide_components(self.block_completed_components)
+        if self.proceed_19.keys in ['', [], None]: self.proceed_19.keys = None
+        self.block.addData('proceed_19.keys',self.proceed_19.keys)
+        if self.proceed_19.keys != None: self.block.addData('proceed_19.rt', self.proceed_19.rt)
+        self.routineTimer.reset()
+        self.thisExp.nextEntry()
+        
+        
 
     def task_score(self):
-        task_score_components = []
-        self.prepare_routine(task_score_components)
-        self.run_routine(task_score_components)
-        self.end_routine(task_score_components)
+        #self.prepare_routine(task_score_components)
+        self.routine_reset()
+        if self.lang_keys.keys == 'e':
+            self.text_28.setText("You win " + str(self.task_rew) + " "+ "points in these set of blocks!")
+        else:
+            self.text_28.setText("Du gewinnst " + str(self.task_rew) + " "+ "Punkte in diesem Satz von Blöcken!")
+        self.proceed_20.keys = []
+        self.proceed_20.rt = []
+        self._proceed_20_allKeys = []
+        self.task_score_components = [self.space_bg_19, self.text_28, self.proceed_20]
+        self.task_score_components = self.keep_track(self.task_score_components)
+        self.reset_timers()
+        
+        #self.run_routine(task_score_components)
+        while self.continueRoutine:
+            self.get_current_time(self.language_preferenceClock)
+            self.frameN = self.frameN + 1
+            if self.space_bg_19.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.space_bg_19 = self.text_or_image_update(self.space_bg_19)
+                self.thisExp.timestampOnFlip(self.win, 'space_bg_19.started')
+            if self.text_28.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.text_28 = self.text_or_image_update(self.text_28)
+                self.thisExp.timestampOnFlip(self.win, 'text_28.started')
+            self.waitOnFlip = False
+            if self.proceed_20.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+                self.proceed_20 = self.keys_update_1(self.proceed_20)
+                self.thisExp.timestampOnFlip(self.win, 'proceed_20.started')
+            if self.proceed_20.status == STARTED and not self.waitOnFlip:
+                self._proceed_20_allKeys, self.proceed_20 = self.keys_update_2(self.proceed_20, self._proceed_20_allKeys, ['space'])
+            if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
+            if not self.continueRoutine: self.routineForceEnded = True; break
+            self.continueRoutine = False
+            self.task_score_components = self.check_if_components_finished(self.task_score_components)
+            if self.continueRoutine: self.win.flip()
+        
+        #self.end_routine(task_score_components)
+        self.task_score_components = self.hide_components(self.task_score_components)
+        if self.proceed_20.keys in ['', [], None]: self.proceed_20.keys = None
+        self.prac_main_task.addData('proceed_20.keys',self.proceed_20.keys)
+        if self.proceed_20.keys != None: self.prac_main_task.addData('proceed_20.rt', self.proceed_20.rt)
+        self.routineTimer.reset()
+        
 
     def end_experiment(self):
-        #
-        a=1
+        if self.block_num == self.total_blocks:
+            self.win.flip()
+            self.thisExp.saveAsWideText(self.filename+'.csv', delim='auto')
+            self.thisExp.saveAsPickle(self.filename)
+            logging.flush()
+            if self.eyetracker: self.eyetracker.setConnectionState(False)
+            self.thisExp.abort()
+            self.win.close()
+            core.quit()
