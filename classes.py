@@ -16,83 +16,77 @@ from random import shuffle
 class Trial:
     
     # variables
-    endExpNow = False
-    frameTolerance = 0.001
-    task_rew = 0
-    rew = 'hello'
-    block_str = 'hello'
-    number_list = [1,2,3,4]
-    random.shuffle(number_list)
-    task_str = "hello"
-    lists = [0, 1, 2, 3] #, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]   # manipulate blocks
-    block_lists = lists
-    number_of_blocks = len(block_lists)
-    random.shuffle(block_lists);
-    print(block_lists);
-    x = [0] #,1,2]#,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]                      # manipulate trials
-    random.shuffle(x);
-    trial_lists = x;
-    ques_word = 'hello'
-    total_blocks = number_of_blocks
-    block_num = 0;
-    cond1_rew = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0];
-    cond2_rew = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0];
-    random.shuffle(cond1_rew);
-    random.shuffle(cond2_rew);
-    task_str = 'hello'
-    mu = 0
+    endExpNow = False                                                        # checks whether experiment should be ended ('True' when ending condition is met)
+    frameTolerance = 0.001                                                   # used to time the routines
+    task_rew = 0                                                             # stores how many points participant wins throughout the task
+    rew = 'hello'                                                            # stores text about whether crystals are found
+    block_str = 'hello'                                                      # stores text about how many blocks have been completed
+    lists = [0, 1, 2, 3] #, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]         # manipulate number of blocks
+    block_lists = lists                                                      # stores number values and order of the blocks
+    number_of_blocks = len(block_lists)                                      # stores the number of blocks
+    random.shuffle(block_lists);                                             # shuffles the order of the blocks
+    x = [0] #,1,2]#,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19]             # manipulate number of trials
+    random.shuffle(x);                                                       # shuffle the order of trials
+    trial_lists = x;                                                         # list for the order of trials
+    ques_word = 'hello'                                                      # random variable to locally store text value which is later anyway added to another variable (can be used multiple times)
+    total_blocks = number_of_blocks                                          # variable to store the total number of blocks
+    block_num = 0;                                                           # variable to follow the block number
+    cond1_rew = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0];                     # stores possibility of finding crystals for mixed uncertainty condition
+    cond2_rew = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0];                     # stores possibility of finding crystals for perceptual uncertainty condition
+    random.shuffle(cond1_rew);                                               # shuffles possibility variables for mixed condition
+    random.shuffle(cond2_rew);                                               # shuffles possibility variables for perceptual condition
+    mu = 0                                                                   # stores slider value
     
     # experiment information (variables)
-    _thisDir = None
-    _thisDir = None 
-    psychopyVersion = None
-    expName = None
-    expInfo = None
+    _thisDir = None                                                          # stores the path name for the experiment directory
+    psychopyVersion = None                                                   # stores psychopy version name
+    expName = None                                                           # stores the name of the experiment
+    expInfo = None                                                           # dictionary to save experiment info (participant, session, etc.)
     
     # participant window
-    dlg = None
-    filename = None
+    dlg = None                                                               # participant window module (psychopy library)
+    filename = None                                                          # saves the file name for the current participant
     
     # experiment handler
-    thisExp = None
-    logFile = None
-    logging = None
+    thisExp = None                                                           # experiment handler (stores information about the experiment throughout the whole task)
+    logFile = None                                                           # creates a log file
+    logging = None                                                           # variable for setting of logging level 
     
     # setup window
-    win = None
-    frameDur = None
+    win = None                                                               # window module (pp library)
+    frameDur = None                                                          # variable for frame duration
     
     # setup devices
-    ioConfig = None
-    ioSession = None
-    ioServer = None
-    io = None
-    eyetracker = False
-    defaultKeyboard = None
+    ioConfig = None                                                          # input/output configuration handling
+    ioSession = None                                                         # current session
+    ioServer = None                                                          # connection to server
+    io = None                                                                # generic interface
+    eyetracker = False                                                       # checks whether eyetracker is also used
+    defaultKeyboard = None                                                   # used with keyboard module (pp library)
     
     # initialize routines
     # language preference
-    language_preferenceClock = None
-    text_101 = None
-    lang_keys = None
-    language_preference_components = None
-    continueRoutine = None
-    routineForceEnded = None
-    _lang_keys_allKeys = None
-    t = None
-    frameN = None
-    _timeToFirstFrame = None
-    tThisFlip = None
-    tThisFlipGlobal = None
-    waitOnFlip = None
-    theseKeys = None
-    # prac_block
-    space_image_7 = None
-    proceed_17 = None
-    _proceed_17_allKeys = None
-    text_20 = None
-    prac_block_components = None
-    # primer_mu                 -> create xlsx table with all values for space background -> import -> replace e.g. ori=0.o with table.whatever
+    language_preferenceClock = None                                          # clock module for language preference routine
+    text_101 = None                                                          # text component for routine
+    lang_keys = None                                                         # keyboard component for routine
+    language_preference_components = []                                      # list for all components of this routine
+    continueRoutine = None                                                   # True while routine is running, False when key is pressed ('e', 'g', 'esc')
+    routineForceEnded = None                                                 # True when 'esc' is pressed
+    _lang_keys_allKeys = None                                                # Saves key presses for this routine
+    t = None                                                                 # stores time value
+    frameN = None                                                            # keep track of current frame
+    _timeToFirstFrame = None                                                 # measures time to set up experiment (start to onset of stimuli)
+    tThisFlip = None                                                         # record time of current frame flip
+    tThisFlipGlobal = None                                                   # global time of the current frame flip
+    waitOnFlip = None                                                        # specifies whether the code should wait for the next frame flip before proceeding
+    theseKeys = None                                                         # empty variable for key presses (change)
+    # prac_block components
+    space_image_7 = None                                                     # space background component
+    proceed_17 = None                                                        # key press component to continue ('space')
+    _proceed_17_allKeys = None                                               # global key press component
+    text_20 = None                                                           # text component for instructions
+    prac_block_components = []                                               # list to store all prac_block components
+    # primer_mu components                                                      -> create xlsx table with all values for space background -> import -> replace e.g. ori=0.o with table.whatever
     space_bg_12 = None
     shuttle_5 = None
     planet_right_6 = None
@@ -103,13 +97,15 @@ class Trial:
     key_resp_3 = None
     left_planet = None
     right_planet = None
-    # signal
+    primer_mu_components = [] 
+    # signal components
     space_image_8 = None
     radar_3 = None
     left_patch_7 = None
     fix_circle_7 = None
     right_patch_7 = None
-    # slider_3
+    signal_components = []
+    # slider_3 components
     space_bg_13 = None
     text_22 = None
     reported_mu = None
@@ -118,11 +114,13 @@ class Trial:
     planet_right_7 = None
     planet_left_7 = None
     arrow_left_4 = None
-    # prechoice_text
+    slider_3_components = []
+    # prechoice_text components
     space_bg_14 = None
     text_23 = None
     key_resp_4 = None
-    # last_mu
+    prechoice_text_components = []
+    # last_mu components
     space_bg_15 = None
     shuttle_6 = None
     planet_right_8 = None
@@ -133,7 +131,8 @@ class Trial:
     key_resp_5 = None
     text_31 = None
     mu = None
-    # block_choice
+    last_mu_components = []
+    # block_choice components
     space_bg_16 = None
     shuttle_7 = None
     planet_right_9 = None
@@ -142,54 +141,58 @@ class Trial:
     question = None
     mouse_resp = None
     x, y = [None, None]
-    # block_rew
+    block_choice_components = []
+    # block_rew components
     space_bg_17 = None
     proceed_18 = None
     text_26 = None
     planet = None
     shuttle_8 = None
     crystal = None
-    # block_completed
+    block_rew_components = []
+    # block_completed components
     space_bg_18 = None
     proceed_19 = None
     text_27 = None
-    # task_score
+    block_completed_components = []
+    # task_score components
     space_bg_19 = None
     text_28 = None
     proceed_20 = None
+    task_score_components = []
     
     # create timers
-    globalClock = None
-    routineTimer = None
+    globalClock = None                                                       # sets up a global clock
+    routineTimer = None                                                      # sets up a routine timer component
     
     # prac_main handler
-    prac_main_task = None
-    thisPrac_main_task = None
-    currentLoop = None
+    prac_main_task = None                                                    # stores data and conditions for main/prac tasks
+    thisPrac_main_task = None                                                # stores data and conditions for current iteration of prac_main_task (either main or prac)
+    currentLoop = None                                                       # stores data and conditions of current main/prac loop
     
     #block_handler
-    block = None
-    thisBlock = None
-    task_file = None
+    block = None                                                             # stores data and conditions for all blocks
+    thisBlock = None                                                         # stors data and condition for current block
+    task_file = None                                                         # stores task file path name
     
     #primer handler
-    primer = None
-    thisPrimer = None
-    condition_file = None
+    primer = None                                                            # stores data and conditions for all primers (primer=1 trial of each block)
+    thisPrimer = None                                                        # stores data and conditions for current primer
+    condition_file = None                                                    # stores condition file path name
     
     #trials handler
-    trials = None
-    thisTrial = None
+    trials = None                                                            # stores data and conditions for all trials
+    thisTrial = None                                                         # stores data and codnitions for current trial
     
     # last handler
-    last = None
-    thisLast = None
+    last = None                                                              # stores data and conditions for all last slider uses of a block
+    thisLast = None                                                          # stores data and conditions for last slider use
     
     
-    def __init__(self, type):
+    def __init__(self, type):                                                # initilalizes either a practice task or a main task
         self.type = type
     
-    def experiment_info(self):
+    def experiment_info(self):                                               # stores experiment info
         # this may be redundant, since the variables get initialized in the class attributes section
         self._thisDir = os.path.dirname(os.path.abspath(__file__))
         os.chdir(self._thisDir) # check function, may also be problematic in participant_window
@@ -200,7 +203,7 @@ class Trial:
             'session': '001',
         }
     
-    def participant_window(self):
+    def participant_window(self):                                            # participant and session number input 
         self.dlg = gui.DlgFromDict(dictionary=self.expInfo, sortKeys=False, title=self.expName)
         if self.dlg.OK == False: core.quit()
         self.expInfo['date'] = data.getDateStr()
@@ -242,7 +245,7 @@ class Trial:
         self.setup_window()
         self.setup_devices()
 
-    def initialize_routines(self):
+    def initialize_routines(self):                                           # initializes all components of all routines with specific values
         # language preference
         self.language_preferenceClock = core.Clock()
         self.text_101 = visual.TextStim(win=self.win, name='text_101', text='Bitte gib an, welche Sprache du für die Instruktionen bevorzugst.\n\nDrücke G für Deutsch. \nDrücke E für Englisch.\n\nIndicate the language that you prefer for the task instructions.\n\nPress G for German. \nPress E for English.', font='Times New Roman', pos=(0, 0), height=0.03, wrapWidth=None, ori=0.0,  color='black', colorSpace='rgb', opacity=None,  languageStyle='LTR', depth=0.0);
@@ -252,7 +255,7 @@ class Trial:
         self.proceed_17 = keyboard.Keyboard()
         self.text_20 = visual.TextStim(win=self.win, name='text_20', text='', font='Times New Roman', pos=(0, 0), height=0.03, wrapWidth=None, ori=0.0, color='white', colorSpace='rgb', opacity=None, languageStyle='LTR', depth=-3.0);
         # primer_mu
-        self.space_bg_12 = visual.ImageStim(win=self.win, name='space_bg_12', image='resources/space3.png', mask=None, anchor='center', ori=0.0, pos=(0, 0), size=(2, 1), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=0.0)
+        self.space_bg_12 = self.space_image_7; self.space_bg_12.name = 'space_bg_12'; self.space_bg_12.depth = 0.0
         self.shuttle_5 = visual.ImageStim(win=self.win, name='shuttle_5', image='resources/space-shuttle.png', mask=None, anchor='center', ori=0.0, pos=(0, -0.15), size=(0.2, 0.2), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=-2.0)
         self.planet_right_6 = visual.ImageStim(win=self.win, name='planet_right_6', image='sin', mask=None, anchor='center', ori=0.0, pos=[0,0], size=(0.15, 0.15), color=[1,1,1], colorSpace='rgb', opacity=1.0, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=-3.0)
         self.planet_left_6 = visual.ImageStim(win=self.win, name='planet_left_6', image='sin', mask=None, anchor='center', ori=0.0, pos=(-0.4, 0.4), size=(0.15, 0.15), color=[1,1,1], colorSpace='rgb', opacity=1.0, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=-4.0)
@@ -262,13 +265,14 @@ class Trial:
         self.key_resp_3 = keyboard.Keyboard()
         self.mu_ghost = visual.Slider(win=self.win, name='mu_ghost', startValue=None, size=(0.8, 0.03), pos=(0, -0.38), units=None, labels=(0, 25, 50, 75, 100), ticks=(0, 25, 50, 75, 100), granularity=0.0, style='rating', styleTweaks=(), opacity=0, labelColor=[0.8824, 0.9451, 1.0000], markerColor=[-0.4980, 0.7569, 0.6314], lineColor=[0.8824, 0.9451, 1.0000], colorSpace='rgb', font='Times New Roman', labelHeight=0.03, flip=False, ori=0.0, depth=-6.0, readOnly=True)
         # signal
-        self.space_image_8 = visual.ImageStim(win=self.win, name='space_image_8', image='resources/space3.png', mask=None, anchor='center', ori=0.0, pos=(0, 0), size=(2, 1), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=0.0)
+        self.space_image_8 = self.space_bg_12; self.space_image_8.name = 'space_image_8'
         self.radar_3 = visual.ImageStim(win=self.win, name='radar_3', image='resources/radar_grayl.png', mask=None, anchor='center', ori=0.0, pos=(0,0), size=(0.6, 0.6), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=-1.0)
         self.left_patch_7 = visual.GratingStim(win=self.win, name='left_patch_7', tex='sin', mask='gauss', anchor='center', ori=0.0, pos=(-0.12, 0), size=(0.12, 0.12), sf=8.0, phase=0.0, color=[1,1,1], colorSpace='rgb', opacity=None, contrast=1.0, blendmode='avg', texRes=512.0, interpolate=True, depth=-2.0)
         self.fix_circle_7 = visual.ShapeStim(win=self.win, name='fix_circle_7', size=(0.007, 0.007), vertices='circle', ori=0.0, pos=(0, 0), anchor='center', lineWidth=1.0,     colorSpace='rgb',  lineColor='black', fillColor='black', opacity=None, depth=-3.0, interpolate=True)
         self.right_patch_7 = visual.GratingStim(win=self.win, name='right_patch_7', tex='sin', mask='gauss', anchor='center', ori=0.0, pos=(0.12, 0), size=(0.12, 0.12), sf=8.0, phase=0.0, color=[1.0000, 1.0000, 1.0000], colorSpace='rgb', opacity=None, contrast=1.0, blendmode='avg', texRes=512.0, interpolate=True, depth=-4.0)
         # slider_3
-        self.space_bg_13 = visual.ImageStim(win=self.win, name='space_bg_13', image='resources/space3.png', mask=None, anchor='center', ori=0.0, pos=(0, 0), size=(2, 1), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=0.0)
+        self.space_bg_13 = self.space_bg_12; self.space_bg_13.name = 'space_bg_13'
+        #self.space_bg_13 = visual.ImageStim(win=self.win, name='space_bg_13', image='resources/space3.png', mask=None, anchor='center', ori=0.0, pos=(0, 0), size=(2, 1), color=[1,1,1], colorSpace='rgb', opacity=None, flipHoriz=False, flipVert=False, texRes=128.0, interpolate=True, depth=0.0)
         self.text_22 = visual.TextStim(win=self.win, name='text_22', text='', font='Times New Roman', pos=(0, -0.3), height=0.03, wrapWidth=None, ori=0.0, color=[0.8824, 0.9451, 1.0000], colorSpace='rgb', opacity=None, languageStyle='LTR', depth=-2.0);
         self.reported_mu = visual.Slider(win=self.win, name='reported_mu', startValue=50, size=(0.8, 0.03), pos=(0, -0.38), units=None, labels=(0, 25, 50, 75, 100), ticks=(0, 25, 50, 75, 100), granularity=0.0, style='rating', styleTweaks=(), opacity=None, labelColor=[0.8824, 0.9451, 1.0000], markerColor=[1.0000, 1.0000, 1.0000], lineColor=[0.8824, 0.9451, 1.0000], colorSpace='rgb', font='Times New Roman', labelHeight=0.03, flip=False, ori=0.0, depth=-3, readOnly=False)
         self.mu_ghost = visual.Slider(win=self.win, name='mu_ghost', startValue=None, size=(0.8, 0.03), pos=(0, -0.38), units=None, labels=(0, 25, 50, 75, 100), ticks=(0, 25, 50, 75, 100), granularity=0.0, style='rating', styleTweaks=(), opacity=0, labelColor=[0.8824, 0.9451, 1.0000], markerColor=[-0.4980, 0.7569, 0.6314], lineColor=[0.8824, 0.9451, 1.0000], colorSpace='rgb', font='Times New Roman', labelHeight=0.03, flip=False, ori=0.0, depth=-6.0, readOnly=True)
@@ -321,7 +325,7 @@ class Trial:
         self.globalClock = core.Clock()
         self.routineTimer = core.Clock()
 
-    def keep_track(self, components):
+    def keep_track(self, components):                                        # keeps track of start/stop times of components
         for thisComponent in components:
             thisComponent.tStart = None
             thisComponent.tStop = None
@@ -330,7 +334,6 @@ class Trial:
             if hasattr(thisComponent, 'status'):
                 thisComponent.status = NOT_STARTED
         return components
-        
 
     def reset_timers(self):
         self.t = 0
@@ -342,17 +345,35 @@ class Trial:
         self.tThisFlip = self.win.getFutureFlipTime(clock=some_clock)
         self.tThisFlipGlobal = self.win.getFutureFlipTime(clock=None)
     
-    def text_or_image_update(self, component):
+    def text_or_image_update(self, component, text):                         # shows component on screen if not present
         if component.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance: 
             # keep track of time function?
             component.frameNStart = self.frameN
             component.tStart = self.t
             component.tStartRefresh = self.tThisFlipGlobal
             self.win.timeOnFlip(component, 'tStartRefresh')
+            self.thisExp.timestampOnFlip(self.win, text)
             component.setAutoDraw(True)
         return component
     
-    def keys_update_1(self, keys):
+    def text_or_image_update_2(self, component, text, num):                  # hides component from screen if routine ends
+        if component.status == STARTED:
+            if self.tThisFlipGlobal > component.tStartRefresh + num-self.frameTolerance:
+                component.tStop = self.t
+                component.frameNStop = self.frameN
+                self.thisExp.timestampOnFlip(self.win, text)
+                component.setAutoDraw(False)
+        return component
+    
+    def keys_update(self, keys, all_keys, text):                             # records key press
+        if keys.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
+            keys = self.keys_update_1(keys)
+            self.thisExp.timestampOnFlip(self.win, text)
+        if keys.status == STARTED and not self.waitOnFlip:
+            all_keys, keys = self.keys_update_2(keys, all_keys, ['space'])
+        return keys, all_keys
+    
+    def keys_update_1(self, keys):                                           # records time conditions of key press
         keys.frameNStart = self.frameN
         keys.tStart = self.t
         keys.tStartRefresh = self.tThisFlipGlobal
@@ -363,7 +384,7 @@ class Trial:
         self.win.callOnFlip(keys.clearEvents, eventType='keyboard')
         return keys
     
-    def keys_update_2(self, keys, all_keys, key):
+    def keys_update_2(self, keys, all_keys, key):                            # if keys is pressed, routine ends
         self.theseKeys = keys.getKeys(keyList=key, waitRelease=False)
         all_keys.extend(self.theseKeys)
         self.continueRoutine = True # check
@@ -389,6 +410,32 @@ class Trial:
     def routine_reset(self):
         self.continueRoutine = True
         self.routineForceEnded = False
+    
+    def save_key_response(self, key_type, text1, text2):                     # logs key responses
+        if key_type.keys in ['', [], None]:
+            key_type.keys = None
+        if text1 == 'lang_keys.keys':
+            self.thisExp.addData(text1, key_type.keys)
+        elif text1 == 'key_resp_3.keys':
+            self.primer.addData(text1, key_type.keys)
+        elif text1 == 'key_resp_5.keys':
+            self.last.addData(text1, key_type.keys)
+        elif text1 == 'proceed_20.keys':
+            self.prac_main_task.addData(text1, key_type.keys)
+        else:
+            self.block.addData(text1, key_type.keys)
+        if key_type.keys != None:
+            if text1 == 'lang_keys.keys':
+                self.thisExp.addData(text2, key_type.rt)
+            elif text1 == 'key_resp_3.keys':
+                self.primer.addData(text2, key_type.rt)
+            elif text1 == 'key_resp_5.keys':
+                self.last.addData(text2, key_type.rt)
+            elif text1 == 'proceed_20.keys':
+                self.prac_main_task.addData(text2, key_type.rt)
+            else:
+                self.block.addData(text2, key_type.rt)
+        return key_type
 
     def prepare_routine(self, components):
         self.routine_reset()
@@ -396,13 +443,13 @@ class Trial:
         self.reset_timers() # check
         return components
 
-    def run_routine(self, components): # currently only functional for language_preference
+    def run_routine(self, components): # currently only functional for language_preference (also redundant at this point)
         while self.continueRoutine:
             self.get_current_time(self.language_preferenceClock)
             self.frameN = self.frameN + 1
-            self.text_101 = self.text_or_image_update(self.text_101)
-            # add a keys update function keys_update() with keys_list = ['e','g'] or keys_list = ["space"] or something -> so that we can use functions from the language preference keys
+            self.text_101 = self.text_or_image_update(self.text_101, 'text_101.started') # VERY CAREFUL HERE, CAUSE I'VE ADDED A TIMESTAMP IN THE FUNCTION which wasn't originally there for text_101
             self.waitOnFlip = False
+            #self.lang_keys, self._lang_keys_allKeys = self.keys_update(self.lang_keys, self._lang_keys_allKeys, 'redundant') -> fix this
             if self.lang_keys.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
                 self.lang_keys = self.keys_update_1(self.lang_keys)
             if self.lang_keys.status == STARTED and not self.waitOnFlip:
@@ -418,18 +465,16 @@ class Trial:
         components = self.hide_components(components)
         self.thisExp.addData('text_101.started', self.text_101.tStartRefresh)
         self.thisExp.addData('text_101.stopped', self.text_101.tStopRefresh)
-        if self.lang_keys.keys in ['', [], None]:
-            self.lang_keys.keys = None
-        self.thisExp.addData('lang_keys.keys',self.lang_keys.keys)
-        if self.lang_keys.keys != None:
-            self.thisExp.addData('lang_keys.rt', self.lang_keys.rt)
+        self.lang_keys = self.save_key_response(self.lang_keys, 'lang_keys.keys', 'lang_keys.rt')
         self.thisExp.addData('lang_keys.started', self.lang_keys.tStartRefresh)
         self.thisExp.addData('lang_keys.stopped', self.lang_keys.tStopRefresh)
         self.thisExp.nextEntry()
         self.routineTimer.reset()
         return components
 
-    def language_preference(self):
+    def language_preference(self):                                           # executes language_preference routine
+        
+        # prepare routine
         self.lang_keys.keys = []
         self.lang_keys.rt = []
         self._lang_keys_allKeys = []
@@ -437,10 +482,13 @@ class Trial:
         self.language_preference_components = self.prepare_routine(self.language_preference_components)
         self.language_preferenceClock.reset(-self._timeToFirstFrame)
         
+        # run routine
         self.language_preference_components = self.run_routine(self.language_preference_components)
+        
+        # end routine
         self.language_preference_components = self.end_routine(self.language_preference_components)
 
-    def create_variables(self, handler):
+    def create_variables(self, handler):                                     # creates variables to store conditions for handlers
         if handler != None:
             for paramName in handler:
                 exec('{} = handler[paramName]'.format(paramName))
@@ -458,8 +506,9 @@ class Trial:
         self.thisBlock = self.block.trialList[0]
         self.thisBlock = self.create_variables(self.thisBlock)
 
-    def prac_block(self):
+    def prac_block(self):                                                    # executes practice_block routine
         
+        # prepare routine
         if self.lang_keys.keys == 'e':
             self.text_20.setText('New block of the main task is coming up. \n Press SPACEBAR to proceed.')
         else:
@@ -467,37 +516,26 @@ class Trial:
         self.proceed_17.keys = []
         self.proceed_17.rt = []
         self._proceed_17_allKeys = []
-        
         self.prac_block_components = [self.space_image_7, self.proceed_17, self.text_20]
         self.prac_block_components = self.prepare_routine(self.prac_block_components)
        
-        # self.prac_block_components = self.run_routine(self.prac_block_components)  -> needs to be implemented
+        # run routine
         while self.continueRoutine:
             self.get_current_time(self.routineTimer)
             self.frameN = self.frameN + 1
-            self.space_image_7 = self.text_or_image_update(self.space_image_7)
-            self.thisExp.timestampOnFlip(self.win, 'space_image_7.started')
+            self.space_image_7 = self.text_or_image_update(self.space_image_7, 'space_image_7.started')
             self.waitOnFlip = False
-            if self.proceed_17.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.proceed_17 = self.keys_update_1(self.proceed_17)
-                self.thisExp.timestampOnFlip(self.win, 'proceed_17.started')
-            if self.proceed_17.status == STARTED and not self.waitOnFlip:
-                self._proceed_17_allKeys, self.proceed_17 = self.keys_update_2(self.proceed_17, self._proceed_17_allKeys, ['space'])
-            self.text_20 = self.text_or_image_update(self.text_20)
-            self.thisExp.timestampOnFlip(self.win, 'text_20.started')
+            self.proceed_17, self._proceed_17_allKeys = self.keys_update(self.proceed_17, self._proceed_17_allKeys, 'proceed_17.started')
+            self.text_20 = self.text_or_image_update(self.text_20, 'text_20.started')
             if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
             if not self.continueRoutine: self.routineForceEnded = True; break
             self.continueRoutine = False
             self.prac_block_components = self.check_if_components_finished(self.prac_block_components)
             if self.continueRoutine: self.win.flip()
         
-        # self.prac_block_components = self.end_routine(self.prac_block_components) --> implement this
+        # end routine
         self.prac_block_components = self.hide_components(self.prac_block_components)
-        if self.proceed_17.keys in ['', [], None]:
-            self.proceed_17.keys = None
-        self.block.addData('proceed_17.keys',self.proceed_17.keys)
-        if self.proceed_17.keys != None:
-            self.block.addData('proceed_17.rt', self.proceed_17.rt)
+        self.proceed_17 = self.save_key_response(self.proceed_17, 'proceed_17.keys', 'proceed_17.rt')
         self.routineTimer.reset()
 
     def primer_handler(self):
@@ -507,10 +545,10 @@ class Trial:
         self.thisPrimer = self.create_variables(self.thisPrimer)
         print(self.thisPrimer)
 
-    def primer_mu(self):
-        #self.prepare_routine(primer_mu_components)
+    def primer_mu(self):                                                     # executes primer_mu routine
+        
+        # prepare routine
         print("WHAT IS GOING ON") 
-        self.routine_reset()
         if self.thisPrimer['left'] == 0:                                                       # PROBLEMATIC
             print("left0 ?????????\n")
             pos = 0.07
@@ -554,48 +592,32 @@ class Trial:
         self._key_resp_3_allKeys = []
         self.mu_ghost.markerPos = None
         self.primer_mu_components = [self.space_bg_12, self.shuttle_5, self.planet_right_6, self.planet_left_6, self.arrow_left_3, self.mu_5, self.text_21, self.key_resp_3]
-        self.primer_mu_components = self.keep_track(self.primer_mu_components)
-        self.reset_timers()
+        self.primer_mu_components = self.prepare_routine(self.primer_mu_components)
         
-        #self.run_routine(primer_mu_components) --> implement
+        # run routine
         while self.continueRoutine:
             self.get_current_time(self.routineTimer)
             self.frameN = self.frameN + 1
-            self.space_bg_12 = self.text_or_image_update(self.space_bg_12)
-            self.thisExp.timestampOnFlip(self.win, 'space_bg_12.started') # -> huge problem, should only be done once, and now gets done many many times -> ANSWER: add text (eg.: 'space_bg_12.started') argument to the function
-            self.shuttle_5 = self.text_or_image_update(self.shuttle_5)
-            self.thisExp.timestampOnFlip(self.win, 'shuttle_5.started')
-            self.planet_right_6 = self.text_or_image_update(self.planet_right_6)
-            self.thisExp.timestampOnFlip(self.win, 'planet_right_6.started')
-            self.planet_left_6 = self.text_or_image_update(self.planet_left_6)
-            self.thisExp.timestampOnFlip(self.win, 'planet_left_6.started')
-            self.arrow_left_3 = self.text_or_image_update(self.arrow_left_3)
-            self.thisExp.timestampOnFlip(self.win, 'arrow_left_3.started')
-            self.mu_5 = self.text_or_image_update(self.mu_5)
-            self.thisExp.timestampOnFlip(self.win, 'mu_5.started')
-            self.text_21 = self.text_or_image_update(self.text_21)
-            self.thisExp.timestampOnFlip(self.win, 'text_21.started')
+            self.space_bg_12 = self.text_or_image_update(self.space_bg_12, 'space_bg_12.started')
+            self.shuttle_5 = self.text_or_image_update(self.shuttle_5, 'shuttle_5.started')
+            self.planet_right_6 = self.text_or_image_update(self.planet_right_6, 'planet_right_6.started')
+            self.planet_left_6 = self.text_or_image_update(self.planet_left_6, 'planet_left_6.started')
+            self.arrow_left_3 = self.text_or_image_update(self.arrow_left_3, 'arrow_left_3.started')
+            self.mu_5 = self.text_or_image_update(self.mu_5, 'mu_5.started')
+            self.text_21 = self.text_or_image_update(self.text_21, 'text_21.started')
             self.waitOnFlip = False
-            if self.key_resp_3.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.key_resp_3 = self.keys_update_1(self.key_resp_3)
-                self.thisExp.timestampOnFlip(self.win, 'key_resp_3.started')
-            if self.key_resp_3.status == STARTED and not self.waitOnFlip:
-                self._key_resp_3_allKeys, self.key_resp_3 = self.keys_update_2(self.key_resp_3, self._key_resp_3_allKeys, ['space'])
+            self.key_resp_3, self._key_resp_3_allKeys = self.keys_update(self.key_resp_3, self._key_resp_3_allKeys, 'key_resp_3.started')
             if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
             if not self.continueRoutine: self.routineForceEnded = True; break
             self.continueRoutine = False
             self.primer_mu_components = self.check_if_components_finished(self.primer_mu_components)
             if self.continueRoutine: self.win.flip()
         
-        #self.end_routine(primer_mu_components)
+        # end routine
         self.primer_mu_components = self.hide_components(self.primer_mu_components)
         self.primer.addData('mu_5.response', self.mu_5.getRating())
         self.primer.addData('mu_5.rt', self.mu_5.getRT())
-        if self.key_resp_3.keys in ['', [], None]:
-            self.key_resp_3.keys = None
-        self.primer.addData('key_resp_3.keys',self.key_resp_3.keys)
-        if self.key_resp_3.keys != None:
-            self.primer.addData('key_resp_3.rt', self.key_resp_3.rt)
+        self.key_resp_3 = self.save_key_response(self.key_resp_3, 'key_resp_3.keys', 'key_resp_3.rt') # LATER DELETE self.key_resp_3 in the beginning -> no need to re-assign as it doesn't get used again
         self.routineTimer.reset()
 
     def trials_handler(self):
@@ -604,64 +626,28 @@ class Trial:
         self.thisTrial = self.trials.trialList[0]
         self.thisTrial = self.create_variables(self.thisTrial)
 
-    def signal(self): # SPECIFICS!!!
-        #self.prepare_routine(signal_components)
-        self.routine_reset()
+    def signal(self): # SPECIFICS!!!                                         # executes signal routine
+        
+        # prepare routine
         self.left_patch_7.setContrast(self.thisTrial['con_left'])
         self.right_patch_7.setContrast(self.thisTrial['con_right'])
         self.signal_components = [self.space_image_8, self.radar_3, self.left_patch_7, self.fix_circle_7, self.right_patch_7]
-        self.signal_components = self.keep_track(self.signal_components)
-        self.reset_timers()
+        self.signal_components = self.prepare_routine(self.signal_components)
         
-        #self.run_routine(signal_components)
+        # run routine
         while self.continueRoutine and self.routineTimer.getTime() < 1.0:
             self.get_current_time(self.routineTimer)
             self.frameN = self.frameN + 1 
-            if self.space_image_8.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.space_image_8 = self.text_or_image_update(self.space_image_8)
-                self.thisExp.timestampOnFlip(self.win, 'space_image_8.started')
-            if self.space_image_8.status == STARTED:                 # check out how to delete this or make it a function ***
-                if self.tThisFlipGlobal > self.space_image_8.tStartRefresh + 1-self.frameTolerance:
-                    self.space_image_8.tStop = self.t
-                    self.space_image_8.frameNStop = self.frameN
-                    self.thisExp.timestampOnFlip(self.win, 'space_image_8.stopped')
-                    self.space_image_8.setAutoDraw(False)
-            if self.radar_3.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.radar_3 = self.text_or_image_update(self.radar_3)
-                self.thisExp.timestampOnFlip(self.win, 'radar_3.started')
-            if self.radar_3.status == STARTED: # ***
-                if self.tThisFlipGlobal > self.radar_3.tStartRefresh + 1-self.frameTolerance:
-                    self.radar_3.tStop = self.t
-                    self.radar_3.frameNStop = self.frameN
-                    self.thisExp.timestampOnFlip(self.win, 'radar_3.stopped')
-                    self.radar_3.setAutoDraw(False)
-            if self.left_patch_7.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.left_patch_7 = self.text_or_image_update(self.left_patch_7)
-                self.thisExp.timestampOnFlip(self.win, 'left_patch_7.started')
-            if self.left_patch_7.status == STARTED: # ***
-                if self.tThisFlipGlobal > self.left_patch_7.tStartRefresh + 1-self.frameTolerance:
-                    self.left_patch_7.tStop = self.t
-                    self.left_patch_7.frameNStop = self.frameN
-                    self.thisExp.timestampOnFlip(self.win, 'left_patch_7.stopped')
-                    self.left_patch_7.setAutoDraw(False)
-            if self.fix_circle_7.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.fix_circle_7 = self.text_or_image_update(self.fix_circle_7)
-                self.thisExp.timestampOnFlip(self.win, 'fix_circle_7.started')
-            if self.fix_circle_7.status == STARTED:
-                if self.tThisFlipGlobal > self.fix_circle_7.tStartRefresh + 1-self.frameTolerance:
-                    self.fix_circle_7.tStop = self.t
-                    self.fix_circle_7.frameNStop = self.frameN
-                    self.thisExp.timestampOnFlip(self.win, 'fix_circle_7.stopped')
-                    self.fix_circle_7.setAutoDraw(False)
-            if self.right_patch_7.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.right_patch_7 = self.text_or_image_update(self.right_patch_7)
-                self.thisExp.timestampOnFlip(self.win, 'right_patch_7.started')
-            if self.right_patch_7.status == STARTED:
-                if self.tThisFlipGlobal > self.right_patch_7.tStartRefresh + 1-self.frameTolerance:
-                    self.right_patch_7.tStop = self.t
-                    self.right_patch_7.frameNStop = self.frameN
-                    self.thisExp.timestampOnFlip(self.win, 'right_patch_7.stopped')
-                    self.right_patch_7.setAutoDraw(False)
+            self.space_image_8 = self.text_or_image_update(self.space_image_8, 'space_image_8.started')
+            self.space_image_8 = self.text_or_image_update_2(self.space_image_8, 'space_image_8.stopped', 1)
+            self.radar_3 = self.text_or_image_update(self.radar_3, 'radar_3.started')
+            self.radar_3 = self.text_or_image_update_2(self.radar_3, 'radar_3.stopped', 1)
+            self.left_patch_7 = self.text_or_image_update(self.left_patch_7, 'left_patch_7.started')
+            self.left_patch_7 = self.text_or_image_update_2(self.left_patch_7, 'left_patch_7.stopped', 1)
+            self.fix_circle_7 = self.text_or_image_update(self.fix_circle_7, 'fix_circle_7.started')
+            self.fix_circle_7 = self.text_or_image_update_2(self.fix_circle_7, 'fix_circle_7.stopped', 1)
+            self.right_patch_7 = self.text_or_image_update(self.right_patch_7, 'right_patch_7.started')
+            self.right_patch_7 = self.text_or_image_update_2(self.right_patch_7, 'right_patch_7.stopped', 1)
             if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
             if not self.continueRoutine: self.routineForceEnded = True; break
             self.continueRoutine = False
@@ -674,8 +660,8 @@ class Trial:
         else: self.routineTimer.addTime(-1.000000)
 
     def slider(self): # SPECIFICS!!!
-        #self.prepare_routine(slider_components)
-        self.routine_reset()
+        
+        # prepare routine
         if self.thisPrimer['left'] == 0:
             pos = 0.075
             if self.lang_keys.keys == 'e':
@@ -707,35 +693,26 @@ class Trial:
         self.mu_ghost.marker.opacity = 0.7
         self.mu_ghost.depth = -1.0
         self.slider_3_components = [self.space_bg_13, self.text_22, self.mu_ghost, self.reported_mu, self.shuttle_3, self.planet_right_7, self.planet_left_7, self.arrow_left_4]
-        self.slider_3_components = self.keep_track(self.slider_3_components)
-        self.reset_timers()
+        self.slider_3_components = self.prepare_routine(self.slider_3_components)
         
-        #self.run_routine(slider_components)
+        # run routine
         while self.continueRoutine and self.routineTimer.getTime() < 7.5:
             self.get_current_time(self.routineTimer)
             self.frameN = self.frameN + 1
-            if self.space_bg_13.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.space_bg_13 = self.text_or_image_update(self.space_bg_13)
-                self.thisExp.timestampOnFlip(self.win, 'space_bg_13.started')
-            if self.space_bg_13.status == STARTED: # ***
-                if self.tThisFlipGlobal > self.space_bg_13.tStartRefresh + 7.5-self.frameTolerance:
-                    self.space_bg_13.tStop = self.t
-                    self.space_bg_13.frameNStop = self.frameN
-                    self.thisExp.timestampOnFlip(self.win, 'space_bg_13.stopped')
-                    self.space_bg_13.setAutoDraw(False)
-            if self.text_22.status == NOT_STARTED and self.tThisFlip >= 0-self.frameTolerance:
-                self.text_22 = self.text_or_image_update(self.text_22)
-                self.thisExp.timestampOnFlip(self.win, 'text_22.started')
-            if self.text_22.status == STARTED: # ***
-                if self.tThisFlip > 7.5-self.frameTolerance:
-                    self.text_22.tStop = self.t
-                    self.text_22.frameNStop = self.frameN
-                    self.thisExp.timestampOnFlip(self.win, 'text_22.stopped')
-                    self.text_22.setAutoDraw(False)
-            if self.reported_mu.status == NOT_STARTED and self.tThisFlip >= 1.5-self.frameTolerance:
-                self.reported_mu = self.text_or_image_update(self.reported_mu)
+            self.space_bg_13 = self.text_or_image_update(self.space_bg_13, 'space_bg_13.started')
+            self.space_bg_13 = self.text_or_image_update_2(self.space_bg_13, 'space_bg_13.stopped', 7.5)
+            self.text_22 = self.text_or_image_update(self.text_22, 'text_22.started')
+            self.text_22 = self.text_or_image_update_2(self.text_22, 'text_22.stopped', 7.5)
+            #self.reported_mu = self.text_or_image_update(self.reported_mu, 'reported_mu.started') # FIX THIS TO MAKE IT WORK
+            if self.reported_mu.status == NOT_STARTED and self.tThisFlip >= 1.5-self.frameTolerance: # DELETE THIS PART WHEN LINE ABOVE IS FIXED
+                self.reported_mu.frameNStart = self.frameN
+                self.reported_mu.tStart = self.t
+                self.reported_mu.tStartRefresh = self.tThisFlipGlobal
+                self.win.timeOnFlip(self.reported_mu, 'tStartRefresh')
                 self.thisExp.timestampOnFlip(self.win, 'reported_mu.started')
-                self.mu_ghost.setAutoDraw(True)                                  # check
+                self.reported_mu.setAutoDraw(True)
+                self.mu_ghost.setAutoDraw(True)
+                
             if self.reported_mu.status == STARTED: # ***
                 if self.tThisFlipGlobal > self.reported_mu.tStartRefresh + 6-self.frameTolerance:
                     self.reported_mu.tStop = self.t
@@ -744,42 +721,14 @@ class Trial:
                     self.mu_ghost.setAutoDraw(False)                             # this too
                     self.reported_mu.setAutoDraw(False)
             if self.reported_mu.getRating() is not None and self.reported_mu.status == STARTED: self.continueRoutine = False
-            if self.shuttle_3.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.shuttle_3 = self.text_or_image_update(self.shuttle_3)
-                self.thisExp.timestampOnFlip(self.win, 'shuttle_3.started')
-            if self.shuttle_3.status == STARTED: # ***
-                if self.tThisFlipGlobal > self.shuttle_3.tStartRefresh + 7.5-self.frameTolerance:
-                    self.shuttle_3.tStop = self.t
-                    self.shuttle_3.frameNStop = self.frameN
-                    self.thisExp.timestampOnFlip(self.win, 'shuttle_3.stopped')
-                    self.shuttle_3.setAutoDraw(False)                
-            if self.planet_right_7.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.planet_right_7 = self.text_or_image_update(self.planet_right_7)
-                self.thisExp.timestampOnFlip(self.win, 'planet_right_7.started')
-            if self.planet_right_7.status == STARTED:
-                if self.tThisFlipGlobal > self.planet_right_7.tStartRefresh + 7.5-self.frameTolerance:
-                    self.planet_right_7.tStop = self.t
-                    self.planet_right_7.frameNStop = self.frameN
-                    self.thisExp.timestampOnFlip(self.win, 'planet_right_7.stopped')
-                    self.planet_right_7.setAutoDraw(False)
-            if self.planet_left_7.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.planet_left_7 = self.text_or_image_update(self.planet_left_7)
-                self.thisExp.timestampOnFlip(self.win, 'planet_left_7.started')
-            if self.planet_left_7.status == STARTED:
-                if self.tThisFlipGlobal > self.planet_left_7.tStartRefresh + 7.5-self.frameTolerance:
-                    self.planet_left_7.tStop = self.t
-                    self.planet_left_7.frameNStop = self.frameN 
-                    self.thisExp.timestampOnFlip(self.win, 'planet_left_7.stopped')
-                    self.planet_left_7.setAutoDraw(False)
-            if self.arrow_left_4.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.arrow_left_4 = self.text_or_image_update(self.arrow_left_4)
-                self.thisExp.timestampOnFlip(self.win, 'arrow_left_4.started')
-            if self.arrow_left_4.status == STARTED:
-                if self.tThisFlipGlobal > self.arrow_left_4.tStartRefresh + 7.5-self.frameTolerance:
-                    self.arrow_left_4.tStop = self.t
-                    self.arrow_left_4.frameNStop = self.frameN
-                    self.thisExp.timestampOnFlip(self.win, 'arrow_left_4.stopped')
-                    self.arrow_left_4.setAutoDraw(False)
+            self.shuttle_3 = self.text_or_image_update(self.shuttle_3, 'shuttle_3.started')
+            self.shuttle_3 = self.text_or_image_update_2(self.shuttle_3, 'shuttle_3.stopped', 7.5)
+            self.planet_right_7 = self.text_or_image_update(self.planet_right_7, 'planet_right_7.started')
+            self.planet_right_7 = self.text_or_image_update_2(self.planet_right_7, 'planet_right_7.stopped', 7.5)
+            self.planet_left_7 = self.text_or_image_update(self.planet_left_7, 'planet_left_7.started')
+            self.planet_left_7 = self.text_or_image_update_2(self.planet_left_7, 'planet_left_7.stopped', 7.5)
+            self.arrow_left_4 = self.text_or_image_update(self.arrow_left_4, 'arrow_left_4.started')
+            self.arrow_left_4 = self.text_or_image_update_2(self.arrow_left_4, 'arrow_left_4.stopped', 7.5)
             if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
             if not self.continueRoutine: self.routineForceEnded = True; break
             self.continueRoutine = False
@@ -800,36 +749,27 @@ class Trial:
         self.thisExp.nextEntry()
 
     def prechoice_text(self):
-        #self.prepare_routine(prechoice_text_components)
-        self.routine_reset()
+        
+        # prepare routine
         if self.lang_keys.keys == 'e':
             instr='Before you provide advise to the spaceship, you will be shown your reported probability on the latest trial.\n\nPlease use the analysis of the radar signals that you conducted throughout the block, to inform the spaceship.\n\nPress SPACEBAR to proceed.'
         else:
-            self.instr='Bevor du den Astronaut:innen deinen Ratschlag erteilst, wird dir deine gemeldete Wahrscheinlichkeit für den letzten Versuch angezeigt.\n\nBitte verwende die Analyse der Radarsignale, die du während des gesamten Blocks durchgeführt hast, um das Raumschiff zu informieren.\n\nDrücke die LEERTASTE, um fortzufahren.'
+            instr='Bevor du den Astronaut:innen deinen Ratschlag erteilst, wird dir deine gemeldete Wahrscheinlichkeit für den letzten Versuch angezeigt.\n\nBitte verwende die Analyse der Radarsignale, die du während des gesamten Blocks durchgeführt hast, um das Raumschiff zu informieren.\n\nDrücke die LEERTASTE, um fortzufahren.'
         self.text_23.setText(instr)
         self.key_resp_4.keys = []
         self.key_resp_4.rt = []
         self._key_resp_4_allKeys = []
         self.prechoice_text_components = [self.space_bg_14, self.text_23, self.key_resp_4]
-        self.prechoice_text_components = self.keep_track(self.prechoice_text_components)
-        self.reset_timers()
+        self.prechoice_text_components = self.prepare_routine(self.prechoice_text_components)
         
         #self.run_routine(prechoice_text_components)
         while self.continueRoutine:
             self.get_current_time(self.routineTimer)
             self.frameN = self.frameN + 1                        
-            if self.space_bg_14.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.space_bg_14 = self.text_or_image_update(self.space_bg_14)
-                self.thisExp.timestampOnFlip(self.win, 'space_bg_14.started')
-            if self.text_23.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.text_23 = self.text_or_image_update(self.text_23)
-                self.thisExp.timestampOnFlip(self.win, 'text_23.started')
+            self.space_bg_14 = self.text_or_image_update(self.space_bg_14, 'space_bg_14.started')
+            self.text_23 = self.text_or_image_update(self.text_23, 'text_23.started')
             self.waitOnFlip = False
-            if self.key_resp_4.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.key_resp_4 = self.keys_update_1(self.key_resp_4)
-                self.thisExp.timestampOnFlip(self.win, 'key_resp_4.started')
-            if self.key_resp_4.status == STARTED and not self.waitOnFlip:
-                self._key_resp_4_allKeys, self.key_resp_4 = self.keys_update_2(self.key_resp_4, self._key_resp_4_allKeys, ['space'])
+            self.key_resp_4, self._key_resp_4_allKeys = self.keys_update(self.key_resp_4, self._key_resp_4_allKeys, 'key_resp_4.started')
             if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
             if not self.continueRoutine: self.routineForceEnded = True; break
             self.continueRoutine = False
@@ -838,9 +778,7 @@ class Trial:
         
         #self.end_routine(prechoice_text_components)
         self.prechoice_text_components = self.hide_components(self.prechoice_text_components)
-        if self.key_resp_4.keys in ['', [], None]: self.key_resp_4.keys = None
-        self.block.addData('key_resp_4.keys',self.key_resp_4.keys)
-        if self.key_resp_4.keys != None: self.block.addData('key_resp_4.rt', self.key_resp_4.rt)
+        self.key_resp_4 = self.save_key_response(self.key_resp_4, 'key_resp_4.keys', 'key_resp_4.rt')
         self.routineTimer.reset()
 
     def last_handler(self):
@@ -851,8 +789,8 @@ class Trial:
         
 
     def last_mu(self): # SPECIFICS!
-        #self.prepare_routine(last_mu_components)
-        self.routine_reset()
+        
+        # prepare routine
         self.mu_7.markerPos = self.mu; # check
         if self.thisPrimer['left'] == 0:
             pos = 0.07
@@ -894,43 +832,23 @@ class Trial:
         self.key_resp_5.rt = []
         self._key_resp_5_allKeys = []
         self.last_mu_components = [self.space_bg_15, self.shuttle_6, self.planet_right_8, self.planet_left_8, self.arrow_left_5, self.mu_7, self.text_24, self.key_resp_5, self.text_31]
-        self.last_mu_components = self.keep_track(self.last_mu_components)
-        self.reset_timers()
+        self.last_mu_components = self.prepare_routine(self.last_mu_components)
         
         #self.run_routine(last_mu_components)
         while self.continueRoutine:
             self.get_current_time(self.routineTimer)
             self.frameN = self.frameN + 1
-            if self.space_bg_15.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.space_bg_15 = self.text_or_image_update(self.space_bg_15)
-                self.thisExp.timestampOnFlip(self.win, 'space_bg_15.started')
+            self.space_bg_15 = self.text_or_image_update(self.space_bg_15, 'space_bg_15.started')
             self.mu_7.markerPos = self.mu;
-            if self.shuttle_6.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.shuttle_6 = self.text_or_image_update(self.shuttle_6)
-                self.thisExp.timestampOnFlip(self.win, 'shuttle_6.started')
-            if self.planet_right_8.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.planet_right_8 = self.text_or_image_update(self.planet_right_8)
-                self.thisExp.timestampOnFlip(self.win, 'planet_right_8.started')
-            if self.planet_left_8.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.planet_left_8 = self.text_or_image_update(self.planet_left_8)
-                self.thisExp.timestampOnFlip(self.win, 'planet_left_8.started')
-            if self.arrow_left_5.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.arrow_left_5 = self.text_or_image_update(self.arrow_left_5)
-                self.thisExp.timestampOnFlip(self.win, 'arrow_left_5.started')
-            if self.mu_7.status == NOT_STARTED and self.tThisFlip >= 0-self.frameTolerance:
-                self.mu_7 = self.text_or_image_update(self.mu_7)
-            if self.text_24.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.text_24 = self.text_or_image_update(self.text_24)
-                self.thisExp.timestampOnFlip(self.win, 'text_24.started')
+            self.shuttle_6 = self.text_or_image_update(self.shuttle_6, 'shuttle_6.started')
+            self.planet_right_8 = self.text_or_image_update(self.planet_right_8, 'planet_right_8.started')
+            self.planet_left_8 = self.text_or_image_update(self.planet_left_8, 'planet_left_8.started')
+            self.arrow_left_5 = self.text_or_image_update(self.arrow_left_5, 'arrow_left_5.started')
+            self.mu_7 = self.text_or_image_update(self.mu_7, 'mu_7.started') # --> TEXT PART WASN'T THERE BEFORE
+            self.text_24 = self.text_or_image_update(self.text_24, 'text_24.started')
             self.waitOnFlip = False
-            if self.key_resp_5.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.key_resp_5 = self.keys_update_1(self.key_resp_5)
-                self.thisExp.timestampOnFlip(self.win, 'key_resp_5.started')
-            if self.key_resp_5.status == STARTED and not self.waitOnFlip:
-                self._key_resp_5_allKeys, self.key_resp_5 = self.keys_update_2(self.key_resp_5, self._key_resp_5_allKeys, ['space'])
-            if self.text_31.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.text_31 = self.text_or_image_update(self.text_31)
-                self.thisExp.timestampOnFlip(self.win, 'text_31.started')
+            self.key_resp_5, self._key_resp_5_allKeys = self.keys_update(self.key_resp_5, self._key_resp_5_allKeys, 'key_resp_5.started')
+            self.text_31 = self.text_or_image_update(self.text_31, 'text_31.started')
             if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
             if not self.continueRoutine: self.routineForceEnded = True; break
             self.continueRoutine = False
@@ -942,14 +860,12 @@ class Trial:
         self.last.addData('mu_7.response', self.mu_7.getRating())
         self.last.addData('mu_7.rt', self.mu_7.getRT())
         if self.reported_mu.getRating() is not None: self.mu_ghost.markerPos = self.mu
-        if self.key_resp_5.keys in ['', [], None]: self.key_resp_5.keys = None
-        self.last.addData('key_resp_5.keys',self.key_resp_5.keys)
-        if self.key_resp_5.keys != None: self.last.addData('key_resp_5.rt', self.key_resp_5.rt)
+        self.key_resp_5 = self.save_key_response(self.key_resp_5, 'key_resp_5.keys', 'key_resp_5.rt')
         self.routineTimer.reset()
 
     def block_choice(self): # SPECIFICS
-        #self.prepare_routine(block_choice_components)
-        self.routine_reset()
+        
+        # prepare routine
         if self.lang_keys.keys == 'e':
             self.text_25.setText('Please make a choice about which planet you want the spaceship to go to.\n\nTo make a choice, you need to click on the planet which you want to send the spaceship to. ')
         else:
@@ -972,31 +888,18 @@ class Trial:
         self.mouse_resp.clicked_name = []
         self.gotValidClick = False
         self.block_choice_components = [self.space_bg_16, self.shuttle_7, self.planet_right_9, self.planet_left_9, self.text_25, self.question, self.mouse_resp]
-        self.block_choice_components = self.keep_track(self.block_choice_components)
-        self.reset_timers()
+        self.block_choice_components = self.prepare_routine(self.block_choice_components)
         
         #self.run_routine(block_choice_components)
         while self.continueRoutine:
             self.get_current_time(self.routineTimer)
             self.frameN = self.frameN + 1
-            if self.space_bg_16.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.space_bg_16 = self.text_or_image_update(self.space_bg_16)
-                self.thisExp.timestampOnFlip(self.win, 'space_bg_16.started')
-            if self.shuttle_7.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.shuttle_7 = self.text_or_image_update(self.shuttle_7)
-                self.thisExp.timestampOnFlip(self.win, 'shuttle_7.started')
-            if self.planet_right_9.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.planet_right_9 = self.text_or_image_update(self.planet_right_9)
-                self.thisExp.timestampOnFlip(self.win, 'planet_right_9.started')
-            if self.planet_left_9.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.planet_left_9 = self.text_or_image_update(self.planet_left_9)
-                self.thisExp.timestampOnFlip(self.win, 'planet_left_9.started')
-            if self.text_25.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.text_25 = self.text_or_image_update(self.text_25)
-                self.thisExp.timestampOnFlip(self.win, 'text_25.started')
-            if self.question.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.question = self.text_or_image_update(self.question)
-                self.thisExp.timestampOnFlip(self.win, 'question.started')
+            self.space_bg_16 = self.text_or_image_update(self.space_bg_16, 'space_bg_16.started')
+            self.shuttle_7 = self.text_or_image_update(self.shuttle_7, 'shuttle_7.started')
+            self.planet_right_9 = self.text_or_image_update(self.planet_right_9, 'planet_right_9.started')
+            self.planet_left_9 = self.text_or_image_update(self.planet_left_9, 'planet_left_9.started')
+            self.text_25 = self.text_or_image_update(self.text_25, 'text_25.started')
+            self.question = self.text_or_image_update(self.question, 'question.started')
             if self.mouse_resp.status == NOT_STARTED and self.t >= 0.0-self.frameTolerance: # I SHOULD ADD A NEW FUNCTION FOR THIS
                 # keep track of start time/frame for later
                 self.mouse_resp.frameNStart = self.frameN  # exact frame index
@@ -1042,7 +945,7 @@ class Trial:
             self.block_choice_components = self.check_if_components_finished(self.block_choice_components)
             if self.continueRoutine: self.win.flip()
         
-        #self.end_routine(block_choice_components)
+        # end routine
         self.block_choice_components = self.hide_components(self.block_choice_components)
         if self.mouse_resp.clicked_name[0] == 'planet_left_9':
             self.text_pos = 0.2;
@@ -1120,8 +1023,8 @@ class Trial:
         self.routineTimer.reset()
 
     def block_reward(self):
-        #self.prepare_routine(block_reward_components)
-        self.routine_reset()
+        
+        # prepare routine
         self.proceed_18.keys = []
         self.proceed_18.rt = []
         self._proceed_18_allKeys = []
@@ -1135,37 +1038,22 @@ class Trial:
         self.crystal.setOpacity(self.op)
         self.crystal.setPos((self.crystal_pos, 0 + 0.1))
         self.block_rew_components = [self.space_bg_17, self.proceed_18, self.text_26, self.planet, self.shuttle_8, self.crystal]
-        self.block_rew_components = self.keep_track(self.block_rew_components)
-        self.reset_timers()
+        self.block_rew_components = self.prepare_routine(self.block_rew_components)
         
         #self.run_routine(block_reward_components)
         while self.continueRoutine:
             self.get_current_time(self.routineTimer)
             self.frameN = self.frameN + 1
-            if self.space_bg_17.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.space_bg_17 = self.text_or_image_update(self.space_bg_17)
-                self.thisExp.timestampOnFlip(self.win, 'space_bg_17.started')
+            self.space_bg_17 = self.text_or_image_update(self.space_bg_17, 'space_bg_17.started')
             self.waitOnFlip = False
-            if self.proceed_18.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.proceed_18 = self.keys_update_1(self.proceed_18)
-                self.thisExp.timestampOnFlip(self.win, 'proceed_18.started')
-            if self.proceed_18.status == STARTED and not self.waitOnFlip:
-                self._proceed_18_allKeys, self.proceed_18 = self.keys_update_2(self.proceed_18, self._proceed_18_allKeys, ['space'])
-            if self.text_26.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.text_26 = self.text_or_image_update(self.text_26)
-                self.thisExp.timestampOnFlip(self.win, 'text_26.started')
-            if self.planet.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.planet = self.text_or_image_update(self.planet)
-                self.thisExp.timestampOnFlip(self.win, 'planet.started')
-            if self.shuttle_8.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.shuttle_8 = self.text_or_image_update(self.shuttle_8)
-                self.thisExp.timestampOnFlip(self.win, 'shuttle_8.started')
+            self.proceed_18, self._proceed_18_allKeys = self.keys_update(self.proceed_18, self._proceed_18_allKeys, 'proceed_18.started')
+            self.text_26 = self.text_or_image_update(self.text_26, 'text_26.started')
+            self.planet = self.text_or_image_update(self.planet, 'planet.started')
+            self.shuttle_8 = self.text_or_image_update(self.shuttle_8, 'shuttle_8.started')
             if self.crystal.status == STARTED:
                 self.crystal.setOri(1,'+')
                 self.crystal.draw()
-            if self.crystal.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.crystal = self.text_or_image_update(self.crystal)
-                self.thisExp.timestampOnFlip(self.win, 'crystal.started')
+            self.crystal = self.text_or_image_update(self.crystal, 'crystal.started')
             if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
             if not self.continueRoutine: self.routineForceEnded = True; break
             self.continueRoutine = False
@@ -1175,9 +1063,7 @@ class Trial:
         
         #self.end_routine(block_reward_components)
         self.block_rew_components = self.hide_components(self.block_rew_components)
-        if self.proceed_18.keys in ['', [], None]: self.proceed_18.keys = None
-        self.block.addData('proceed_18.keys',self.proceed_18.keys)
-        if self.proceed_18.keys != None: self.block.addData('proceed_18.rt', self.proceed_18.rt)
+        self.proceed_18 = self.save_key_response(self.proceed_18, 'proceed_18.keys', 'proceed_18.rt')
         if self.lang_keys.keys == 'e':
             self.str1 = "You completed"
             self.str2 = " " + str(self.block_num)
@@ -1196,54 +1082,43 @@ class Trial:
         self.routineTimer.reset()
 
     def block_completed(self):
-        #self.prepare_routine(block_completed_components)
-        self.routine_reset()
+        
+        # prepare routine
         self.proceed_19.keys = []
         self.proceed_19.rt = []
         self._proceed_19_allKeys = []
         self.text_27.setPos((0, 0))
         self.text_27.setText(self.block_str)
         self.block_completed_components = [self.space_bg_18, self.proceed_19, self.text_27]
-        self.block_completed_components = self.keep_track(self.block_completed_components)
-        self.reset_timers()
+        self.block_completed_components = self.prepare_routine(self.block_completed_components)
         
         #self.run_routine(block_completed_components)
         while self.continueRoutine:
             self.t = self.routineTimer.getTime()
             self.tThisFlip = self.win.getFutureFlipTime(clock=self.routineTimer)
             self.tThisFlipGlobal = self.win.getFutureFlipTime(clock=None)
-            self.frameN = self.frameN + 1 
-            if self.space_bg_18.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.space_bg_18 = self.text_or_image_update(self.space_bg_18)
-                self.thisExp.timestampOnFlip(self.win, 'space_bg_18.started')
+            self.frameN = self.frameN + 1
+            self.space_bg_18 = self.text_or_image_update(self.space_bg_18, 'space_bg_18.started')
             self.waitOnFlip = False
-            if self.proceed_19.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.proceed_19 = self.keys_update_1(self.proceed_19)
-                self.thisExp.timestampOnFlip(self.win, 'proceed_19.started')
-            if self.proceed_19.status == STARTED and not self.waitOnFlip:
-                self._proceed_19_allKeys, self.proceed_19 = self.keys_update_2(self.proceed_19, self._proceed_19_allKeys, ['space'])
-            if self.text_27.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.text_27 = self.text_or_image_update(self.text_27)
-                self.thisExp.timestampOnFlip(self.win, 'text_27.started')
+            self.proceed_19, self._proceed_19_allKeys = self.keys_update(self.proceed_19, self._proceed_19_allKeys, 'proceed_19.started')
+            self.text_27 = self.text_or_image_update(self.text_27, 'text_27.started')
             if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
             if not self.continueRoutine: self.routineForceEnded = True; break
             self.continueRoutine = False
             self.block_completed_components = self.check_if_components_finished(self.block_completed_components)
             if self.continueRoutine: self.win.flip()
         
-        #self.end_routine(block_completed_components)
+        # end routine
         self.block_completed_components = self.hide_components(self.block_completed_components)
-        if self.proceed_19.keys in ['', [], None]: self.proceed_19.keys = None
-        self.block.addData('proceed_19.keys',self.proceed_19.keys)
-        if self.proceed_19.keys != None: self.block.addData('proceed_19.rt', self.proceed_19.rt)
+        self.proceed_19 = self.save_key_response(self.proceed_19, 'proceed_19.keys', 'proceed_19.rt')
         self.routineTimer.reset()
         self.thisExp.nextEntry()
         
         
 
     def task_score(self):
-        #self.prepare_routine(task_score_components)
-        self.routine_reset()
+        
+        # prepare routine
         if self.lang_keys.keys == 'e':
             self.text_28.setText("You win " + str(self.task_rew) + " "+ "points in these set of blocks!")
         else:
@@ -1252,38 +1127,27 @@ class Trial:
         self.proceed_20.rt = []
         self._proceed_20_allKeys = []
         self.task_score_components = [self.space_bg_19, self.text_28, self.proceed_20]
-        self.task_score_components = self.keep_track(self.task_score_components)
-        self.reset_timers()
+        self.task_score_components = self.prepare_routine(self.task_score_components)
         
-        #self.run_routine(task_score_components)
+        # run routine
         while self.continueRoutine:
             self.get_current_time(self.language_preferenceClock)
             self.frameN = self.frameN + 1
-            if self.space_bg_19.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.space_bg_19 = self.text_or_image_update(self.space_bg_19)
-                self.thisExp.timestampOnFlip(self.win, 'space_bg_19.started')
-            if self.text_28.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.text_28 = self.text_or_image_update(self.text_28)
-                self.thisExp.timestampOnFlip(self.win, 'text_28.started')
+            self.space_bg_19 = self.text_or_image_update(self.space_bg_19, 'space_bg_19.started')
+            self.text_28 = self.text_or_image_update(self.text_28, 'text_28.started')
             self.waitOnFlip = False
-            if self.proceed_20.status == NOT_STARTED and self.tThisFlip >= 0.0-self.frameTolerance:
-                self.proceed_20 = self.keys_update_1(self.proceed_20)
-                self.thisExp.timestampOnFlip(self.win, 'proceed_20.started')
-            if self.proceed_20.status == STARTED and not self.waitOnFlip:
-                self._proceed_20_allKeys, self.proceed_20 = self.keys_update_2(self.proceed_20, self._proceed_20_allKeys, ['space'])
+            self.proceed_20, self._proceed_20_allKeys = self.keys_update(self.proceed_20, self._proceed_20_allKeys, 'proceed_20.started')
             if self.endExpNow or self.defaultKeyboard.getKeys(keyList=["escape"]): core.quit()
             if not self.continueRoutine: self.routineForceEnded = True; break
             self.continueRoutine = False
             self.task_score_components = self.check_if_components_finished(self.task_score_components)
             if self.continueRoutine: self.win.flip()
         
-        #self.end_routine(task_score_components)
+        # end routine
         self.task_score_components = self.hide_components(self.task_score_components)
-        if self.proceed_20.keys in ['', [], None]: self.proceed_20.keys = None
-        self.prac_main_task.addData('proceed_20.keys',self.proceed_20.keys)
-        if self.proceed_20.keys != None: self.prac_main_task.addData('proceed_20.rt', self.proceed_20.rt)
+        self.proceed_20 = self.save_key_response(self.proceed_20, 'proceed_20.keys', 'proceed_20.rt')
         self.routineTimer.reset()
-        
+    
 
     def end_experiment(self):
         if self.block_num == self.total_blocks:
